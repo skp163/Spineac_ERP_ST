@@ -2,7 +2,7 @@ import streamlit as st
 
 from streamlit_option_menu import option_menu
 
-import home, account, about,trending, your_post
+import home,account,about,trending,your_post
 
 
 st.set_page_config(
@@ -25,7 +25,7 @@ class MultiApp:
         # app = st.sidebar(
         with st.sidebar:        
             app = option_menu(
-                menu_title='Pondering ',
+                menu_title='Spineac ERP',
                 options=['Home','Account','Trending','Your Posts','about'],
                 icons=['house-fill','person-circle','trophy-fill','chat-fill','info-circle-fill'],
                 menu_icon='chat-text-fill',
