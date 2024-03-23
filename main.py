@@ -2,7 +2,7 @@ import streamlit as st
 
 from streamlit_option_menu import option_menu
 
-import home,account,user_data,about,trending,your_post
+import home,account,userdata,about,trending,your_post
 
 
 st.set_page_config(
@@ -26,7 +26,7 @@ class MultiApp:
         with st.sidebar:        
             app = option_menu(
                 menu_title="Spineac ERP",
-                options=["Home","Account","User_data","Trending","Your Posts","About"],
+                options=["Home","Account","userdata","Trending","Your Posts","About"],
                 icons=["house-fill","person-circle","trophy-fill","chat-fill","info-circle-fill"],
                 menu_icon="chat-text-fill",
                 default_index=1,
@@ -43,15 +43,15 @@ class MultiApp:
             home.app()
         if app == "Account":
             account.app()    
-        if app == "User_data":
-            user_data.app()
+        if app == "userdata":
+            userdata.app()
         if app == "Trending":
             trending.app()        
         if app == "Your Posts":
             your_post.app()
         if app == "About":
             about.app()    
-              
+            
              
     run()            
          

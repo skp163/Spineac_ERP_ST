@@ -15,7 +15,6 @@ def check_hashes(password,hashed_text):
 		return hashed_text
 	return False
 # DB Management
-import sqlite3 
 conn = sqlite3.connect('data.db', check_same_thread=False)
 c = conn.cursor()
 # DB  Functions
@@ -29,12 +28,6 @@ def add_userdata(username,password):
 
 def login_user(username,password):
 	c.execute('SELECT * FROM userstable WHERE username = ? AND password = ?',(username,password))
-	data = c.fetchall()
-	return data
-
-
-def view_all_users():
-	c.execute('SELECT * FROM userstable')
 	data = c.fetchall()
 	return data
 
@@ -53,9 +46,6 @@ def app():
 			result = login_user(username,check_hashes(password,hashed_pswd))
 			if result:
 				st.success("Logged In as {}".format(username))
-				user_result = view_all_users()
-				clean_db = pd.DataFrame(user_result,columns=["Username","Password"])
-				st.dataframe(clean_db)
 			else:
 				st.warning("Incorrect Username/Password")
 	else:
