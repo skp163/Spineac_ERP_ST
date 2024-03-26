@@ -2,7 +2,7 @@ import streamlit as st
 
 from streamlit_option_menu import option_menu
 
-import home,account,userdata,about,trending,your_post
+import pages.home as home,pages.account as account,pages.userdata as userdata,pages.about as about,pages.trending as trending,Login
 
 
 st.set_page_config(
@@ -48,7 +48,7 @@ class MultiApp:
         if app == "Trending":
             trending.app()        
         if app == "Your Posts":
-            your_post.app()
+            Login.app()
         if app == "About":
             about.app()    
             
