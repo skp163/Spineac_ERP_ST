@@ -3,7 +3,6 @@ import hashlib
 import sqlite3
 from st_pages import hide_pages
 from time import sleep
-
 # Security
 #passlib,hashlib,bcrypt,scrypt
 def make_hashes(password):
@@ -36,7 +35,7 @@ def log_in():
     hide_pages([])
     st.success("Logged in!")
     sleep(0.5)
-    st.switch_page("pages/page1.py")
+    st.switch_page("pages/4_Test.py")
 	
 #Session state/hide functionalities for login
 def log_out():
@@ -48,7 +47,7 @@ def log_out():
 
 def main():
 	if not st.session_state.get("logged_in", False):
-		hide_pages(["about", "home", "trending","account","main","test","userdata","User_Registration"])
+		hide_pages(["Home","User_Registration","User_List","Test","about","trending","account","main"])
 		choice=st.selectbox("Login/Forgot Password",["Login","Forgot-Password"])
 		if choice == "Login":
 			username = st.text_input("User Name")
@@ -62,9 +61,11 @@ def main():
 					st.session_state["logged_in"] = True
 					hide_pages([])
 					sleep(0.5)
-					st.switch_page("pages/userdata.py")
+					st.switch_page("pages/03_User_List.py")
 				else:
 					st.warning("Incorrect Username/Password")
+					st.stop()
+					
 	else:
 		st.write("Logged in!")
 		st.button("log out", on_click=log_out)

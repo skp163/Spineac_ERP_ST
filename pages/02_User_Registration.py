@@ -33,6 +33,9 @@ def login_user(username,password):
 def main():
 	st.title("User Registration")
 	fullname = st.text_input("Full Name")
+	department = st.selectbox("Department",["Sourcing","Supply Chain","Wearhouse","Listing","Marketing and Sales","Finance"])
+	role = st.selectbox("Role",["Employee","Manager"])
+	mobile = st.text_input("Mobile Number With Country Code")
 	new_user = st.text_input("Email")
 	new_password=st.text_input("Password",type="password")
 	confpass = st.text_input("Confirm Password", type="password")
@@ -40,6 +43,15 @@ def main():
 		#Data input validation
 			if fullname == "":
 				st.error("Invalid Name")
+				st.stop()
+			elif department == "":
+				st.error("Invalid Department")
+				st.stop()
+			elif role == "":
+				st.error("Invalid Role")
+				st.stop()
+			elif mobile == "":
+				st.error("Invalid Mobile Number")
 				st.stop()
 			elif new_user == "":
 				st.error("Invalid Email")

@@ -2,7 +2,7 @@ import streamlit as st
 
 from streamlit_option_menu import option_menu
 
-import pages.home as home,pages.account as account,pages.userdata as userdata,pages.about as about,pages.trending as trending,Login
+import pages.1_Home as home,pages.account as account,pages.3_User_List as userlist,pages.about as about,pages.trending as trending,Login
 
 
 st.set_page_config(
