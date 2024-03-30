@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import hashlib
-import sqlite3
+import mysql.connector
 
 
 # Security
@@ -13,16 +13,23 @@ def check_hashes(password,hashed_text):
 	if make_hashes(password) == hashed_text:
 		return hashed_text
 	return False
+
 # DB Management
-conn = sqlite3.connect('userdata.db', check_same_thread=False)
+conn = mysql.connector.connect(
+	host = "localhost",
+	user = "admin",
+	password = "Sunilkp@163",
+	database="SpineacErp"
+)
 c = conn.cursor()
+
 # DB  Functions
 def create_usertable():
-	c.execute('CREATE TABLE IF NOT EXISTS userstable(username TEXT,password TEXT)')
+	c.execute('CREATE TABLE IF NOT EXISTS userstable(fullname VARCHAR(255), department VARCHAR(255), role VARCHAR(255), mobile VARCHAR(255), username VARCHAR(255),password TEXT, PRIMARY KEY (username,mobile))')
 
 
-def add_userdata(username,password):
-	c.execute('INSERT INTO userstable(username,password) VALUES (?,?)',(username,password))
+def add_userdata(fullname, department, role, mobile, username,password):
+	c.execute('INSERT INTO userstable(fullname, department, role, mobile, username,password) VALUES (%s,%s,%s,%s,%s,%s)',(fullname, department, role, mobile, username,password))
 	conn.commit()
 
 def login_user(username,password):
@@ -67,7 +74,7 @@ def main():
 				st.stop()
 			else:
 				create_usertable()
-				add_userdata(new_user,make_hashes(new_password))
+				add_userdata(fullname, department, role, mobile, new_user, make_hashes(new_password))
 				st.success("You have successfully created a valid Account")
 				st.info("Go to Login Menu to login")
 				

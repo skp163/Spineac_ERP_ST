@@ -1,10 +1,15 @@
 import streamlit as st
 import pandas as pd
-import sqlite3
+import mysql.connector
 from sqlite3 import Error
 
 
-conn = sqlite3.connect('userdata.db', check_same_thread=False)
+conn = mysql.connector.connect(
+	host = "localhost",
+	user = "admin",
+	password = "Sunilkp@163",
+	database="SpineacErp"
+)
 c = conn.cursor()
 
 def view_all_users():
@@ -16,14 +21,14 @@ def view_all_users():
 def app():
     st.title("User List")
     user_result = view_all_users()
-    clean_db = pd.DataFrame(user_result,columns=["Username","Password"])
+    clean_db = pd.DataFrame(user_result,columns=["fullname", "department", "role", "mobile","Username","Password"])
     st.dataframe(clean_db)
 
 
 def main():
     st.title("User List")
     user_result = view_all_users()
-    clean_db = pd.DataFrame(user_result,columns=["Username","Password"])
+    clean_db = pd.DataFrame(user_result,columns=["fullname", "department", "role", "mobile","Username","Password"])
     st.dataframe(clean_db)
 
 if __name__ == '__main__':

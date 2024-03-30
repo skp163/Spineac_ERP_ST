@@ -1,7 +1,7 @@
 import streamlit as st
 import hashlib
-import sqlite3
 from st_pages import hide_pages
+import mysql.connector
 from time import sleep
 # Security
 #passlib,hashlib,bcrypt,scrypt
@@ -13,19 +13,24 @@ def check_hashes(password,hashed_text):
 		return hashed_text
 	return False
 # DB Management
-conn = sqlite3.connect('userdata.db', check_same_thread=False)
+conn = mysql.connector.connect(
+	host = "localhost",
+	user = "admin",
+	password = "Sunilkp@163",
+	database="SpineacErp"
+)
 c = conn.cursor()
 # DB  Functions
 def create_usertable():
-	c.execute('CREATE TABLE IF NOT EXISTS userstable(username TEXT,password TEXT)')
+	c.execute('CREATE TABLE IF NOT EXISTS userstable(fullname VARCHAR(255), department VARCHAR(255), role VARCHAR(255), mobile VARCHAR(255), username VARCHAR(255),password TEXT)')
 
 
-def add_userdata(username,password):
-	c.execute('INSERT INTO userstable(username,password) VALUES (?,?)',(username,password))
+def add_userdata(fullname, department, role, mobile, username,password):
+	c.execute('INSERT INTO userstable(fullname, department, role, mobile, username,password) VALUES (%s,%s,%s,%s,%s,%s)',(fullname, department, role, mobile, username,password))
 	conn.commit()
 
 def login_user(username,password):
-	c.execute('SELECT * FROM userstable WHERE username = ? AND password = ?',(username,password))
+	c.execute('SELECT * FROM userstable WHERE username = %s AND password = %s',(username,password))
 	data = c.fetchall()
 	return data
 
